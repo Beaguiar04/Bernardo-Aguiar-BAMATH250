@@ -1,0 +1,60 @@
+---
+title: "Inference HW"
+author: "Bernardo Aguiar"
+format: html
+---
+```{r}
+library(tidyverse)
+library(rstatix)
+```
+
+```{r}
+library(ggpubr)
+```
+
+```{r}
+carseats_real <- ISLR2::Carseats
+```
+
+## Problem 1
+
+```{r}
+ggplot(carseats_real, aes(sample = Price)) +
+  geom_qq() + 
+  geom_qq_line(color = "green") +
+  labs(title = "Q-Q Plot for Car Seat Prices",
+       x = "Sample Quantities",
+       y = "Theoretical Quantities")
+```
+
+We can see here that the μ = $110 and the alternate hypothesis μ ≠ $110.
+
+## Problem 2
+
+```{r}
+get_summary_stats(carseats_real["Price"], type = "mean_sd")
+```
+
+```{r}
+result <- t.test(carseats_real$Price, mu = 110, conf.level = 0.90)
+result
+```
+As we can see here the mean of x is 115.795
+
+```{r}
+error <- 115.795 - 110
+error
+```
+
+We can see that sample mean that is 115.80 and the Margin of error(MOE) is approximately 5.80.
+
+## Problem 3
+
+```{r}
+penguins_real <- penguins
+
+peng_table <- table(penguins_real$species, penguins_real$island)
+addmargins(peng_table)
+```
+
+## Problem 4
